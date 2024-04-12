@@ -6,14 +6,12 @@ class NativeCpp;
 
 class CG_EXPORTS Win32MemoryHandler final : public CG::MemoryHandler
 {
-private:
     NativeCpp* _target = nullptr;
     void* _pHandle = nullptr;
 
 public:
     explicit Win32MemoryHandler(NativeCpp* target);
 
-public:
     bool IsBadAddress(void* address) override;
     bool IsStaticAddress(void* address) override;
     bool IsValidRemoteAddress(void* address) override;

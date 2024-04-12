@@ -5,7 +5,6 @@
 
 class CG_EXPORTS NativeCpp final : public CG::TargetHandlerPlugin
 {
-private:
     Win32MemoryHandler* _memHandler = nullptr;
     int32_t _pid = 0;
     void* _processHandle = nullptr;

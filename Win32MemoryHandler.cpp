@@ -69,7 +69,8 @@ bool Win32MemoryHandler::IsValidRemoteAddress(void* address)
         return false;
 
     MEMORY_BASIC_INFORMATION info;
-    bool valid = VirtualQueryEx(_pHandle, address, &info, sizeof(MEMORY_BASIC_INFORMATION)) == sizeof(MEMORY_BASIC_INFORMATION);
+    bool valid = VirtualQueryEx(_pHandle, address, &info, sizeof(MEMORY_BASIC_INFORMATION)) == sizeof(
+        MEMORY_BASIC_INFORMATION);
     if (!valid)
         return false;
 

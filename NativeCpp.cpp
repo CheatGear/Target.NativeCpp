@@ -129,8 +129,8 @@ void* NativeCpp::GetMaxValidAddress()
 {
     CG_LOG_FUNC_CALL;
     return reinterpret_cast<void*>(_sysInfo.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64 && GetIs64Bit()
-        ? 0x800000000000
-        : 0x100000000);
+                                       ? 0x800000000000
+                                       : 0x100000000);
 }
 
 bool NativeCpp::GetMemoryRegion(void* address, CG::MemRegionInfo* memRegion)
@@ -198,7 +198,8 @@ bool NativeCpp::Suspend()
 {
     CG_LOG_FUNC_CALL;
     using NtSuspendProcessType = LONG(NTAPI *)(IN HANDLE processHandle);
-    static auto pfnNtSuspendProcess = reinterpret_cast<NtSuspendProcessType>(GetProcAddress(GetModuleHandleA("ntdll"), "NtSuspendProcess"));
+    static auto pfnNtSuspendProcess = reinterpret_cast<NtSuspendProcessType>(GetProcAddress(
+        GetModuleHandleA("ntdll"), "NtSuspendProcess"));
 
     return pfnNtSuspendProcess(_processHandle) >= 0;
 }
@@ -207,7 +208,8 @@ bool NativeCpp::Resume()
 {
     CG_LOG_FUNC_CALL;
     using NtResumeProcessType = LONG(NTAPI *)(IN HANDLE processHandle);
-    static auto pfnNtSuspendProcess = reinterpret_cast<NtResumeProcessType>(GetProcAddress(GetModuleHandleA("ntdll"), "NtResumeProcess"));
+    static auto pfnNtSuspendProcess = reinterpret_cast<NtResumeProcessType>(GetProcAddress(
+        GetModuleHandleA("ntdll"), "NtResumeProcess"));
 
     return pfnNtSuspendProcess(_processHandle) >= 0;
 }
@@ -216,7 +218,8 @@ bool NativeCpp::Terminate()
 {
     CG_LOG_FUNC_CALL;
     using NtTerminateProcessType = LONG(NTAPI *)(IN HANDLE processHandle, IN NTSTATUS exitStatus);
-    static auto pfnNtTerminateProcess = reinterpret_cast<NtTerminateProcessType>(GetProcAddress(GetModuleHandleA("ntdll"), "NtTerminateProcess"));
+    static auto pfnNtTerminateProcess = reinterpret_cast<NtTerminateProcessType>(GetProcAddress(
+        GetModuleHandleA("ntdll"), "NtTerminateProcess"));
 
     return pfnNtTerminateProcess(_processHandle, 0) >= 0;
 }
