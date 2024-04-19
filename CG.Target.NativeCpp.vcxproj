@@ -168,6 +168,9 @@
         <ClInclude Include="Win32MemoryHandler.h"/>
         <ClInclude Include="NativeCpp.h"/>
     </ItemGroup>
+    <ItemGroup>
+        <None Include="packages.config"/>
+    </ItemGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
     <ImportGroup Label="ExtensionTargets">
     </ImportGroup>
