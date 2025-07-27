@@ -76,7 +76,7 @@ int NativeCpp::OnTargetLock(const int32_t processId)
         processId);
     _pid = processId;
 
-    return IsValidHandle(_processHandle) ? 0 : 1;
+    return IsValidHandle(_processHandle) ? 0 : -1;
 }
 
 int NativeCpp::OnTargetFree()
