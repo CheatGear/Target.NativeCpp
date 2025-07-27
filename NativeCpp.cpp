@@ -210,6 +210,7 @@ void* NativeCpp::VirtualAlloc(void* address, int32_t size)
 
 void NativeCpp::VirtualFree(void* address, int32_t size)
 {
+    // TODO: Should return bool
     VirtualFreeEx(_processHandle, address, size, MEM_RELEASE);
 }
 
