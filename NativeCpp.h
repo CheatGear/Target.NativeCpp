@@ -1,39 +1,28 @@
 ﻿#pragma once
 #include <CGMacro.h>
-#include <Plugin/Target/TargetHandlerPlugin.h>
-#include "Win32MemoryHandler.h"
+#include <Plugins/Target/TargetHandlerPlugin.h>
 
 class CG_EXPORTS NativeCpp final : public CG::TargetHandlerPlugin
 {
-    Win32MemoryHandler* _memHandler = nullptr;
     int32_t _pid = 0;
     void* _processHandle = nullptr;
-    SYSTEM_INFO _sysInfo{};
 
 public:
-    NativeCpp();
-    ~NativeCpp() override;
-
-private:
-    static bool IsValidHandle(const void* pHandle);
-
-public:
-    CG::MemoryHandler* GetMemoryHandler() override;
-    void Load() override;
-    void Unload() override;
-    void OnTargetFree() override;
-    bool OnTargetLock(int32_t processId) override;
-    void OnTargetReady() override;
-    CG::CGArray<CG::MemModuleInfo>* GetModules() override;
-    bool GetIs64Bit() override;
-    int32_t GetSystemPageSize() override;
-    void* GetMinValidAddress() override;
-    void* GetMaxValidAddress() override;
-    bool GetMemoryRegion(void* address, CG::MemRegionInfo* memRegion) override;
-    bool IsValidRegion(CG::MemRegionInfo* memRegion) override;
     bool IsValidProcess(int processId) override;
-    bool IsValidTarget() override;
+    int OnTargetLock(int32_t processId) override;
+    int OnTargetFree() override;
+    bool GetIs64Bit() override;
+    CG::CGArray<CG::TargetModuleInfo>* GetModules() override;
     bool Suspend() override;
     bool Resume() override;
     bool Terminate() override;
+    bool VirtualQuery(void* address, CG::MemoryInformation* outMemInfo) override;
+    bool IsValidAddress(void* address) override;
+    void* VirtualAlloc(void* address, int32_t size) override;
+    void VirtualFree(void* address, int32_t size) override;
+    bool IsValidMemory(CG::MemoryInformation* memRegion) override;
+    bool IsStaticAddress(void* address, int32_t* outFailStatus) override;
+    auto ReadBytes(void* address, uint8_t* bytes, int size, uint64_t* numberOfBytesRead) -> bool override;
+    bool WriteBytes(void* address, uint8_t* bytes, int size, uint64_t* numberOfBytesWritten) override;
+    void Dispose() override;
 };
